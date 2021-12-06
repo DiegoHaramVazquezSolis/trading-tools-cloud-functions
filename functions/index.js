@@ -7,10 +7,9 @@ const moment = require('moment');
 const { getTradesBasedOnTimeRanges, saveMonthlyPerformanceData } = require('./services/database');
 const { WIN, LOSS, STOP, MANUALLY, TAKE_PROFIT, EVEN } = require('./utils/constants');
 
-
 exports.generateMonthlyPerformanceRecord = functions.pubsub.schedule('0 0 1 * *').timeZone('America/Mexico_City').onRun(async (context) => {
-    const firstDate = moment().subtract(2, 'month').startOf('month');
-    const lastDate = moment().subtract(2, 'month').endOf('month');
+    const firstDate = moment().subtract(1, 'month').startOf('month');
+    const lastDate = moment().subtract(1, 'month').endOf('month');
 
     const trades = await getTradesBasedOnTimeRanges(firstDate.toDate(), lastDate.toDate());
 
